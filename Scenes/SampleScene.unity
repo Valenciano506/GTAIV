@@ -171,6 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96941cb69d5405d468a2e38cd0408496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleController
+  minSize: 0.05
+  maxSize: 0.5
+  minForce: 20
+  maxForce: 48
+  minTorque: 20
+  maxTorque: 48
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,6 +526,7 @@ GameObject:
   - component: {fileID: 738102995}
   - component: {fileID: 738102998}
   - component: {fileID: 738102997}
+  - component: {fileID: 738102999}
   m_Layer: 0
   m_Name: Player 3
   m_TagString: Untagged
@@ -675,6 +682,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &738102999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738102994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96941cb69d5405d468a2e38cd0408496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleController
+  minSize: 0.05
+  maxSize: 0.5
+  minForce: 20
+  maxForce: 48
+  minTorque: 20
+  maxTorque: 48
 --- !u!1 &894326730
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,6 +990,7 @@ GameObject:
   - component: {fileID: 1667970361}
   - component: {fileID: 1667970363}
   - component: {fileID: 1667970364}
+  - component: {fileID: 1667970365}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1120,6 +1146,24 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.63, y: 10.1}
   m_EdgeRadius: 0
+--- !u!114 &1667970365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667970360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96941cb69d5405d468a2e38cd0408496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleController
+  minSize: 0.05
+  maxSize: 0.5
+  minForce: 20
+  maxForce: 48
+  minTorque: 20
+  maxTorque: 48
 --- !u!1 &1794267234
 GameObject:
   m_ObjectHideFlags: 0
