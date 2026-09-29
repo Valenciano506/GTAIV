@@ -1155,15 +1155,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1667970360}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96941cb69d5405d468a2e38cd0408496, type: 3}
+  m_Script: {fileID: 11500000, guid: 00209c434f4e48c409bfb336a7269ff6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObstacleController
-  minSize: 0.05
-  maxSize: 0.5
-  minForce: 20
-  maxForce: 48
-  minTorque: 20
-  maxTorque: 48
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1 &1794267234
 GameObject:
   m_ObjectHideFlags: 0

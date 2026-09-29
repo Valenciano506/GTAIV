@@ -32,11 +32,9 @@ public class ObstacleController : MonoBehaviour
         rb.AddTorque(-torque);
 
         Debug.Log(transform == tf);
+
+        rb.mass = size * 2;
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
