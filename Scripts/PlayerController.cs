@@ -14,8 +14,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Mouse.current.leftButton.isPressed)
         {
+            //Calculate the direction from the player to the mouse
             Debug.Log("The left buton is clicked");
             Debug.Log("The current mouse position is: " + Mouse.current.position.value);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
+            Debug.Log("The world position of the mouse is: " + mousePos);
+            Vector2 dir = mousePos = gameObject.transform.position;
+            Debug.Log("The direction to the mouse is: " + dir);
         }
     }
 }
