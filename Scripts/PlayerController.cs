@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("The world position of the mouse is: " + mousePos);
             Vector2 dir = mousePos = gameObject.transform.position;
             Debug.Log("The direction to the mouse is: " + dir);
+            transform.up = dir;
+            rb.AddForce(dir);
         }
     }
 }
