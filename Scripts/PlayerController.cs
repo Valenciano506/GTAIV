@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     [SerializeField]
     private float maxSpeed = 4;
+
+    private float elapsedTime = 0f;
+
+    private UIDocument uiDoc;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +23,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        elapsedTime += Time.deltaTime;
+
         if (Mouse.current.leftButton.isPressed)
         {
             //Calculate the direction from the player to the mouse
