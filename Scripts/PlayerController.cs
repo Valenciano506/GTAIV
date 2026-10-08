@@ -11,13 +11,15 @@ public class PlayerController : MonoBehaviour
     private float maxSpeed = 4;
 
     private float elapsedTime = 0f;
-
+    [SerializeField]
     private UIDocument uiDoc;
+
+    private Label scoreLabel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        uiDoc.rootVisualElement.Q<Label>();
     }
 
     // Update is called once per frame

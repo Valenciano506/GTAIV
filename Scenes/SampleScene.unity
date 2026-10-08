@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 916107143}
   - component: {fileID: 916107142}
   m_Layer: 0
-  m_Name: UIlayout
+  m_Name: gameUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
