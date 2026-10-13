@@ -19,14 +19,17 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        uiDoc.rootVisualElement.Q<Label>();
+        scoreLabel = uiDoc.rootVisualElement.Q<Label>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void UpdateScore()
     {
         elapsedTime += Time.deltaTime;
+        scoreLabel.text = "Score: " + Mathf.FloorToInt(elapsedTime);
+    }
 
+    void UpdateMovement()
+    {
         if (Mouse.current.leftButton.isPressed)
         {
             //Calculate the direction from the player to the mouse
@@ -34,21 +37,27 @@ public class PlayerController : MonoBehaviour
             Debug.Log("The current mouse position is: " + Mouse.current.position.value);
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
             Debug.Log("The world position of the mouse is: " + mousePos);
-            Vector2 dir = (mousePos = gameObject.transform.position).normalized;
+            Vector2 dir = (mousePos - gameObject.transform.position).normalized;
             Debug.Log("The direction to the mouse is: " + dir.sqrMagnitude);
             transform.up = dir;
             rb.AddForce(dir * force);
-            if(rb.linearVelocity.magnitude > maxSpeed){ 
+            if (rb.linearVelocity.magnitude > maxSpeed)
+            {
                 rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
             }
         }
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateScore();
+        UpdateMovement();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         Destroy(gameObject);
-
     }
 
 }
