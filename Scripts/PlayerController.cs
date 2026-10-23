@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private ParticleSystem explosionEffect;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         scoreLabel = uiDoc.rootVisualElement.Q<Label>();
@@ -34,13 +33,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Mouse.current.leftButton.isPressed)
         {
-            //Calculate the direction from the player to the mouse
-            Debug.Log("The left buton is clicked");
-            Debug.Log("The current mouse position is: " + Mouse.current.position.value);
+            // Calculate the direction from the player to the mouse
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
-            Debug.Log("The world position of the mouse is: " + mousePos);
-            Vector2 dir = (mousePos - gameObject.transform.position).normalized;
-            Debug.Log("The direction to the mouse is: " + dir.sqrMagnitude);
+            Vector2 dir = (mousePos - transform.position).normalized;
             transform.up = dir;
             rb.AddForce(dir * force);
             if (rb.linearVelocity.magnitude > maxSpeed)
@@ -50,7 +45,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateScore();
@@ -59,9 +53,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //transform.position;
-        Instantiate(explosionEffect, transform.position, transform.rotation);
+        // Solo explota si choca con un obstáculo
+        if (collision.gameObject.GetComponent<ObstacleController>() == null)
+        {
+            return;
+        }
+
+        // Punto exacto del choque (z = 0 para que se vea en 2D)
+        Vector3 hitPoint = collision.GetContact(0).point;
+        hitPoint.z = 0f;
+
+        // Partículas justo en el punto de la explosión
+        ParticleSystem fx = Instantiate(explosionEffect, hitPoint, Quaternion.identity);
+        fx.Play();
+
+        // Elimina el efecto cuando termine para no dejar objetos sueltos
+        Destroy(fx.gameObject, fx.main.duration + fx.main.startLifetime.constantMax);
+
+        // El jugador desaparece
         Destroy(gameObject);
     }
-
 }

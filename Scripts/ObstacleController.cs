@@ -14,27 +14,46 @@ public class ObstacleController : MonoBehaviour
     private float minTorque = 20f;
     [SerializeField]
     private float maxTorque = 48f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField]
+    private ParticleSystem hitEffect; // Partículas del choque con la pared
+
     void Start()
     {
-        // Asing a random size to each obstacle object
+        // Asigna un tamaño aleatorio a cada obstáculo
         float size = Random.Range(minSize, maxSize);
         transform.localScale = new Vector3(size, size, 1);
-        // Get the rigidbody component on our game object
+
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        Transform tf = GetComponent<Transform>();
         Vector2 randomDirection = Random.insideUnitCircle;
-        // Generate a random force
+
+        // Fuerza aleatoria
         float force = Random.Range(minForce, maxForce);
         rb.AddForce(randomDirection * force);
-        // Apply a random torque for each obstacle
+
+        // Torque aleatorio
         float torque = Random.Range(minTorque, maxTorque);
         rb.AddTorque(-torque);
 
-        Debug.Log(transform == tf);
-
         rb.mass = size * 2;
-
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Si choca con otro obstáculo o con el jugador, no hacemos nada
+        if (collision.gameObject.GetComponent<ObstacleController>() != null ||
+            collision.gameObject.GetComponent<PlayerController>() != null)
+        {
+            return;
+        }
+
+        // Lo demás se considera pared: partículas en el punto exacto del choque
+        Vector3 hitPoint = collision.GetContact(0).point;
+        hitPoint.z = 0f;
+
+        ParticleSystem fx = Instantiate(hitEffect, hitPoint, Quaternion.identity);
+        fx.Play();
+
+        // Se borra el efecto al terminar; el obstáculo NO desaparece
+        Destroy(fx.gameObject, fx.main.duration + fx.main.startLifetime.constantMax);
+    }
 }
