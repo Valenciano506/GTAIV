@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private Label scoreLabel;
     [SerializeField]
     private ParticleSystem explosionEffect;
+    [SerializeField]
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -53,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        audioSource.Play();
         // Solo explota si choca con un obstáculo
         if (collision.gameObject.GetComponent<ObstacleController>() == null)
         {
