@@ -15,7 +15,12 @@ public class ObstacleController : MonoBehaviour
     [SerializeField]
     private float maxTorque = 48f;
     [SerializeField]
-    private ParticleSystem hitEffect; // Partículas del choque con la pared
+    private ParticleSystem hitEffect;   // Partículas del choque con la pared
+    [SerializeField]
+    private AudioSource audioSource;         // Sonido del choque con la pared
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float hitVolume = 1f;
 
     void Start()
     {
@@ -46,14 +51,21 @@ public class ObstacleController : MonoBehaviour
             return;
         }
 
-        // Lo demás se considera pared: partículas en el punto exacto del choque
+        // Lo demás se considera pared: punto exacto del choque
         Vector3 hitPoint = collision.GetContact(0).point;
         hitPoint.z = 0f;
 
+        // 1) Partículas en el punto del choque
         ParticleSystem fx = Instantiate(hitEffect, hitPoint, Quaternion.identity);
         fx.Play();
-
-        // Se borra el efecto al terminar; el obstáculo NO desaparece
         Destroy(fx.gameObject, fx.main.duration + fx.main.startLifetime.constantMax);
+
+        // 2) Sonido del choque
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+
+        // El obstáculo NO desaparece
     }
 }

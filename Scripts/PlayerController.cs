@@ -18,7 +18,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private ParticleSystem explosionEffect;
     [SerializeField]
-    private AudioSource audioSource;
+    private AudioSource audioSource;   // Sonido de la explosión
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float explosionVolume = 1f;
 
     void Start()
     {
@@ -55,8 +58,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        audioSource.Play();
         // Solo explota si choca con un obstáculo
         if (collision.gameObject.GetComponent<ObstacleController>() == null)
         {
@@ -67,14 +68,18 @@ public class PlayerController : MonoBehaviour
         Vector3 hitPoint = collision.GetContact(0).point;
         hitPoint.z = 0f;
 
-        // Partículas justo en el punto de la explosión
+        // 1) Partículas justo en el punto de la explosión
         ParticleSystem fx = Instantiate(explosionEffect, hitPoint, Quaternion.identity);
         fx.Play();
-
-        // Elimina el efecto cuando termine para no dejar objetos sueltos
         Destroy(fx.gameObject, fx.main.duration + fx.main.startLifetime.constantMax);
 
-        // El jugador desaparece
-        Destroy(gameObject);
+        // 2) Sonido de la explosión (suena aunque el jugador se destruya)
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+
+        // 3) El jugador desaparece
+        Destroy(gameObject, 0.2f);
     }
 }
